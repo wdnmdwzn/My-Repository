@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class 简化背包问题
+{
+
+    public static int solution(int V, int n, int[] a, int[] dp)
+    {
+        for(int i=1; i<=n; i++) { //遍历每个箱子
+            for (int j=V; j>=a[i]; j--) { // 遍历每个容积
+                if(dp[j] > (dp[j-a[i]] + a[i]))
+                    dp[j] = dp[j];
+                else
+                    dp[j] = dp[j-a[i]] + a[i]; //取最大值
+            }
+        }
+        return V-dp[V];
+    }
+
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int V = in.nextInt();
+        int n = in.nextInt();
+        int[] dp = new int[20001];
+        int[] a = new int[31];
+        for(int i=1; i<=n; i++) {
+            a[i] = in.nextInt();
+        }
+        System.out.println(solution(V,n,a,dp));
+    }
+}
