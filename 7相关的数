@@ -37,3 +37,35 @@ public class related7Number {
         }
 }
 
+----------------------------------------------------------------------------------------------------
+
+#include<bits/stdc++.h>
+#define int long long
+#define MAXN 1000005
+using namespace std;
+int pre[MAXN];
+int get(int x)
+{
+    int flag=0;
+    int m=x;
+    while(m)
+    {
+        if(m%10==7)flag=1;
+        m/=10;
+    }
+    if(flag||x%7==0)return 0;
+    return x*x;
+}
+signed main()
+{
+    for(int i=1;i<=1000000;i++)
+        pre[i]=get(i)+pre[i-1];
+    int t;cin>>t;
+    while(t--)
+    {
+        int x;cin>>x;
+        cout<<pre[x]<<endl;
+    }
+}
+
+//分割线下面的是大佬的C++代码。我复制过来以便查找。
