@@ -1,0 +1,39 @@
+import java.util.Scanner;
+import java.lang.Math;
+
+public class related7Number {
+        public static int solution(int N)
+        {
+            int sum = 0;
+            for(int i=1; i<=N; i++) {
+                if(i%7 != 0) sum += i*i;
+                else {
+                    int[] everynum = new int[8];
+                    int everysum = 0;
+                    for (int j=1; j<=7; j++){
+                        everynum[j] = (int) (i % Math.pow(10,j) - everysum);
+                        everysum += everynum[j];
+                    }
+                    for (int j=1; j<=6; j++) {
+                        if(everynum[j] !=0 && everynum[j] % 7 == 0) {
+                            sum += i*i;
+                            break;
+                        }
+                    }
+                }
+            }
+            return sum;
+        }
+
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            int T = in.nextInt();
+            while (T>0)
+            {
+                int N = in.nextInt();
+                System.out.println(solution(N));
+                T--;
+            }
+        }
+}
+
