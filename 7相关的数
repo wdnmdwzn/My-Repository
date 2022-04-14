@@ -23,7 +23,7 @@ public class related7Number {
                 }
             }
             return sum;
-        }
+       }
 
         public static void main(String[] args) {
             Scanner in = new Scanner(System.in);
