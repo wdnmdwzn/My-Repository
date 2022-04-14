@@ -1,0 +1,32 @@
+#include<iostream>
+#define int long long //防止爆int
+using namespace std;
+int a[505][505];
+int dp[505][505];
+
+int max(int a, int b)
+{
+	return a>b ? a : b;
+}
+
+signed main() //因为之前的define int long long，所以这里要改成signed
+{
+	int n;
+	cin >> n;
+	
+	for(int i=1; i<=n; i++)
+		for(int j=1; j<=n; j++)
+			cin >> a[i][j]; //a是玉米地的那个数组
+			
+	for(int i=1; i<=n; i++)
+	{
+		for(int j=1; j<=n; j++)
+		{
+			dp[i][j] = max(dp[i-1][j] , dp[i][j-1]) + a[i][j]; //建立了一个dp数组，用来存放dp[i]的上方和左方的玉米地的数量和的数据。
+      //因为只能向右或向下走，所以反推上和左。
+		}	
+	}
+	cout << dp[n][n] << endl; //这样dp[n][n]的值就是最大的值了。
+	
+	return 0;
+}
