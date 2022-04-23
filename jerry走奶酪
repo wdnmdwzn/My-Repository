@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class DFSandBFS {
+    static long start=System.currentTimeMillis();
+    public static long n,h,r;
+    public static long[] x = new long[2005];
+    public static long[] y = new long[2005];
+    public static long[] z = new long[2005];
+    public static long[] vis = new long[2005];
+
+    static boolean check(int a, int b)
+    {
+        return (x[a]-x[b])*(x[a]-x[b])+(y[a]-y[b])*(y[a]-y[b])+(z[a]-z[b])*(z[a]-z[b])
+                <= 4*r*r;
+    }
+    //判断两个球空洞是否有交点。有的话Jerry可以通过，check值为1；反之为0。
+
+    public static void dfs(int now)
+    {
+        if(vis[now] == 1)
+            return; //即vis[now] == 1时直接返回，表示该点已经遍历过
+        //是递归的退出条件。
+        vis[now] = 1;
+        for(int i=1; i<=n; i++)
+            if(check(now, i)) //若可以通过，则继续dfs，不行的话就下一个循环。
+                dfs(i);
+    }
+
+    public static void solve()
+    {
+        Scanner in = new Scanner(System.in);
+        n = in.nextLong();
+        h = in.nextLong();
+        r = in.nextLong();
+        for(int i=1; i<=n; i++) {
+            x[i] = in.nextLong();
+            y[i] = in.nextLong();
+            z[i] = in.nextLong();
+        }
+        for (int i=1; i<=n; i++)
+            if(z[i]-r <= 0)
+                dfs(i);
+            //遍历所有坐标，如果有z坐标小于r说明jerry可以进去，于是选取当前的i作为now开始dfs遍历
+
+        for (int i=1; i<=n; i++)
+            if(vis[i]== 1 && z[i]+r>=h) {
+                //vis[i]==1表示这个点表里到了，即代表jerry走到这个点了。
+                //然后此时要是可以满足该点的z坐标+r大于等于奶酪的高度的话，说明jerry是可以走出去的。
+                System.out.println("Yes");
+                return;
+            }
+            System.out.println("No");
+    }
+
+    public static void main(String[] args) {
+        Scanner ru = new Scanner(System.in);
+        int T = ru.nextInt();
+        while (T>0) {
+            solve();
+            T--;
+        }
+        long end=System.currentTimeMillis();
+        System.out.println("程序运行时间： "+(end-start)+"ms");
+    }
+}

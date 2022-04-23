@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class test {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        int L = in.nextInt();
+        int[] a = new int[N+1];
+        for (int i=1; i<=N; i++) {
+            a[i] = in.nextInt();
+        }
+        mintime(N, L, a);
+        maxtime(N, L, a);
+    }
+
+    static void mintime(int N, int L, int[] a ) //用来算最短时间的方法
+    //最短的时间肯定就是从最近的那一端下去，在所有蚂蚁中找离两端的绝对距离最长的
+    {
+        int mid = (L>>1);
+        int left = 0;
+        int right = L;
+        for (int i=1; i<=N; i++) {
+            if(a[i] == mid) {
+                System.out.println(a[i]);
+                return;
+            }
+            if(a[i] < mid && a[i] > left) left = a[i];
+            if(a[i] > mid && a[i] < right) right = a[i];
+        }
+        if(left > L - right) System.out.print(left + " ");
+        else System.out.print(L-right + " ");
+    }
+
+    static void maxtime(int N, int L, int[] a) {
+    //同理，最长时间是从最远的一端下去，也是找离远的那一段绝对距离最长的
+        int mid = (L>>1);
+        int left = mid;
+        int right = mid;
+        for (int i=1; i<=N; i++) {
+            if(a[i] == 0 || a[i] == L) {
+                System.out.print(L);
+                return;
+            }
+            if( a[i] <= left) left = a[i];
+            if( a[i] >= right) right = a[i];
+        }
+        if(L - left > right ) System.out.print(L-left);
+        else System.out.print(right);
+    }
+}
+//刚看到会容易打退堂鼓，因为没有规定方向感觉情况好多会很复杂。但其实最短和最长时间并不用考虑中间会相向然后掉头的情况，这种掉头的情况并不会让时间改变。

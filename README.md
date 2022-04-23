@@ -1,3 +1,3 @@
 # My-Repository
-This is my repository
-
+这是用来存放刷题的代码的一个分支。希望几个月后能看到这里的硕果累累。
+期待进步。

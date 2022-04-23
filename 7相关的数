@@ -1,0 +1,71 @@
+import java.util.Scanner;
+import java.lang.Math;
+
+public class related7Number {
+        public static int solution(int N)
+        {
+            int sum = 0;
+            for(int i=1; i<=N; i++) {
+                if(i%7 != 0) sum += i*i;
+                else {
+                    int[] everynum = new int[8];
+                    int everysum = 0;
+                    for (int j=1; j<=7; j++){
+                        everynum[j] = (int) (i % Math.pow(10,j) - everysum);
+                        everysum += everynum[j];
+                    }
+                    for (int j=1; j<=6; j++) {
+                        if(everynum[j] !=0 && everynum[j] % 7 == 0) {
+                            sum += i*i;
+                            break;
+                        }
+                    }
+                }
+            }
+            return sum;
+       }
+
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            int T = in.nextInt();
+            while (T>0)
+            {
+                int N = in.nextInt();
+                System.out.println(solution(N));
+                T--;
+            }
+        }
+}
+
+----------------------------------------------------------------------------------------------------
+
+#include<bits/stdc++.h>
+#define int long long
+#define MAXN 1000005
+using namespace std;
+int pre[MAXN];
+int get(int x)
+{
+    int flag=0;
+    int m=x;
+    while(m)
+    {
+        if(m%10==7)flag=1;
+        m/=10;
+    }
+    if(flag||x%7==0)return 0;
+    return x*x;
+}
+signed main()
+{
+    for(int i=1;i<=1000000;i++)
+        pre[i]=get(i)+pre[i-1];
+    int t;cin>>t;
+    while(t--)
+    {
+        int x;cin>>x;
+        cout<<pre[x]<<endl;
+    }
+}
+
+//分割线下面的是大佬的C++代码。我复制过来以便查找。
